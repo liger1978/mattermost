@@ -195,12 +195,12 @@ directory.  Defaults to `/opt/mattermost`.
 ##### `create_user`
 
 Should the module create an unprivileged system account that will be used to run
-Mattermost server. Defaults to `true`.
+Mattermost server? Defaults to `true`.
 
 ##### `create_group`
 
 Should the module create an unprivileged system group that will be used to run
-Mattermost server. Defaults to `true`.
+Mattermost server? Defaults to `true`.
 
 ##### `user`
 
@@ -255,12 +255,12 @@ when it is installed on the same server as the database.  Defaults to `''`
 ##### `install_service`
 
 Should the module install a daemon for Mattermost server appropriate for your
-operating system.  Defaults to `true`.
+operating system?  Defaults to `true`.
 
 ##### `manage_service`
 
 Should the module manage (`ensure => 'running'` and `enable => true`) the
-installed Mattermost server daemon.  Defaults to `true`.
+installed Mattermost server daemon?  Defaults to `true`.
 
 ## Limitations
 
