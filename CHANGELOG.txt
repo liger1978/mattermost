@@ -1,2 +1,5 @@
-2016-01-2016 Richard Grainger <grainger@gmail.com> - 1.0.0
+2016-01-09 Richard Grainger <grainger@gmail.com> - 1.0.1
+* Fix metadata
+
+2016-01-09 Richard Grainger <grainger@gmail.com> - 1.0.0
 * Initial 1.0.0 release
