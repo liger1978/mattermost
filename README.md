@@ -152,7 +152,7 @@ class { 'mattermost':
     optionally installs a daemon (service) for Mattermost in the format
     native to your operating system.
  - `mattermost::config`: Configures Mattermost according to provided settings.
- - `mattermost::service`: Manages the the Mattermost daemon.
+ - `mattermost::service`: Manages the Mattermost daemon.
 
 ### Parameters
 
@@ -165,7 +165,7 @@ The base URL to download the Mattermost server release archive. Defaults to
 
 ##### `file_name`
 
-The filename of the remote remote Mattermost server release archive.
+The filename of the remote Mattermost server release archive.
 Defaults to `mattermost.tar.gz`.
 
 ##### `version`
