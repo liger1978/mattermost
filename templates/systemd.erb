@@ -1,0 +1,18 @@
+[Unit]
+Description=mattermost
+<% if @depend_service != '' -%>
+After=syslog.target network.target <%= @depend_service %>.service
+Requires=<%= @depend_service %>.service
+<% else -%>
+After=syslog.target network.target
+<% end -%>
+
+[Service]
+Type=simple
+WorkingDirectory=<%= @symlink %>
+User=<%= @user %>
+ExecStart=<%= @symlink %>/bin/platform
+PIDFile=/var/spool/mattermost/pid/master.pid
+
+[Install]
+WantedBy=multi-user.target
