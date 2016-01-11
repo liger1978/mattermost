@@ -6,11 +6,7 @@ class mattermost::config inherits mattermost {
     '__VERSION__',
     $mattermost::version
   )
-  $conf = regsubst(
-    $mattermost::conf,
-    '/__DIR__',
-    $dir
-  )
+  $conf = "${dir}/config/config.json"
   augeas{ $conf:
     changes => template('mattermost/config.json.erb'),
     lens    => 'Json.lns',

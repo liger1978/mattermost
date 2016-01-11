@@ -34,7 +34,6 @@ class mattermost (
   validate_string($group)
   validate_integer($uid)
   validate_integer($gid)
-  validate_absolute_path($conf)
   validate_hash($override_options)
   validate_string($depend_service)
   validate_bool($install_service)

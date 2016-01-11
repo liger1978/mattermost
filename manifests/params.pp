@@ -14,7 +14,6 @@ class mattermost::params {
   $group = 'mattermost'
   $uid = '1500'
   $gid = '1500'
-  $conf = '/__DIR__/config/config.json'
   $override_options = {}
   $depend_service = ''
   $install_service = true
