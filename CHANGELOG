@@ -1,3 +1,7 @@
+2016-01-11 Richard Grainger <grainger@gmail.com> - 1.0.3
+* Remove conf variable from params.pp
+* Improve README
+
 2016-01-09 Richard Grainger <grainger@gmail.com> - 1.0.2
 * Correct README
 * Correct metadata

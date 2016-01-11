@@ -1,6 +1,6 @@
 {
   "name": "liger1978-mattermost",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Richard Grainger",
   "summary": "Installs and configures Mattermost.",
   "license": "Apache-2.0",
