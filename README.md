@@ -35,7 +35,7 @@ The Mattermost module does the following:
 ### What mattermost affects
 
 * Installs Mattermost server (defaults to `/opt/mattermost-${version`).
-* Creates a friendly symbolic link to the installtion directory (defaults to
+* Creates a friendly symbolic link to the installation directory (defaults to
   `/opt/mattermost`).
 * Creates a Mattermost daemon (service) using your operating system's native
   service provider.
@@ -44,7 +44,7 @@ The Mattermost module does the following:
 ### Beginning with mattermost
 
 If you have a database server running, ready for Mattermost server to use as a
-backend, this is the minimum you need to get Mattermost server working.
+backend, this is the minimum you need to get Mattermost server working:
 
 ````puppet
 class { 'mattermost':
@@ -60,7 +60,7 @@ class { 'mattermost':
 This will install a Mattermost server listening on the default TCP port
 (currently 8065).
 
-Here's an example of Mattermost using PostgreSQL as a database and NGINX as a
+Here is an example of Mattermost using PostgreSQL as a database and NGINX as a
 reverse proxy, all running on the same system (requires
 [puppetlabs/postgresql](https://forge.puppetlabs.com/puppetlabs/postgresql) and
 [jfryman/nginx](https://forge.puppetlabs.com/jfryman/nginx)):
@@ -97,8 +97,9 @@ nginx::resource::vhost { 'mattermost':
 }
 ````
 
-You should be able to access the Mattermost application at
-`http://myserver.mydomain` (or whatever resolvable DNS domain you chose).
+With the above code, you should be able to access the Mattermost application at
+`http://myserver.mydomain` (or whatever resolvable DNS domain you chose) via 
+the NGINX reverse proxy listening on port 80.
 
 ## Usage
 
@@ -222,18 +223,13 @@ Mattermost server. Defaults to `1500`.
 The gid of the unprivileged system group that will be used to run
 Mattermost server. Defaults to `1500`.
 
-##### `conf`
-
-The location on the Mattermost config file.  Defaults to
-`/${dir}/config/config.json`.
-
 ##### `override_options`
 
 A hash containing overrides to the default settings contained in Mattermost's
 [config file](https://github.com/mattermost/platform/blob/master/config/config.json).
 Defaults to `{}` (empty hash).
 
-You should at least specify `SqlSettings`, e.g.:
+**Please note:** You should at least specify `SqlSettings`, e.g.:
 
 ````puppet
 class { 'mattermost':
@@ -249,18 +245,18 @@ class { 'mattermost':
 ##### `depend_service`
 
 The local service (i.e. database service) that Mattermost server needs to start
-when it is installed on the same server as the database.  Defaults to `''`
-(empty string).
+when it is installed on the same server as the database backend.  Defaults to
+`''` (empty string).
 
 ##### `install_service`
 
-Should the module install a daemon for Mattermost server appropriate for your
+Should the module install a daemon for Mattermost server appropriate to your
 operating system?  Defaults to `true`.
 
 ##### `manage_service`
 
-Should the module manage (`ensure => 'running'` and `enable => true`) the
-installed Mattermost server daemon?  Defaults to `true`.
+Should the module manage the installed Mattermost server daemon
+(`ensure => 'running'` and `enable => true`)? Defaults to `true`.
 
 ## Limitations
 
