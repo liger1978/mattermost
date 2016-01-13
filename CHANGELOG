@@ -1,5 +1,6 @@
 2016-01-13 Richard Grainger <grainger@gmail.com> - 1.0.3
 * Manage Mattermost data directory in non-default location
+* Allow smooth upgrades
 
 2016-01-11 Richard Grainger <grainger@gmail.com> - 1.0.3
 * Remove conf variable from params.pp
