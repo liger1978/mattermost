@@ -43,6 +43,10 @@ class mattermost::params {
     }
     $data_dir = undef
   }
+  notify { "hash value":
+    message => $override_options['FileSettings']['Directory'],
+  }
+  
 
   case $::osfamily {
     'RedHat': {
