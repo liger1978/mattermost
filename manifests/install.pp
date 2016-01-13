@@ -14,8 +14,6 @@ class mattermost::install inherits mattermost {
     ''      => undef,
     default => $mattermost::service_mode,
   }
-  $data_dir = $mattermost::override_options['FileSettings']['Directory']
-  $manage_data_dir = $mattermost::manage_data_dir
   staging::file{ $mattermost::filename:
     source => $full_url,
   }
@@ -60,8 +58,8 @@ class mattermost::install inherits mattermost {
       mode    => $mode,
     }
   }
-  if ($data_dir and $manage_data_dir){
-    file { $data_dir:
+  if ($mattermost::data_dir and $mattermost::manage_data_dir){
+    file { $mattermost::data_dir:
       ensure  => directory,
       owner   => $mattermost::user,
       group   => $mattermost::group,

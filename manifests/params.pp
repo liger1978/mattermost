@@ -19,6 +19,18 @@ class mattermost::params {
   $depend_service = ''
   $install_service = true
   $manage_service = true
+  
+  if ($override_options['FileSettings']) {
+    if ($override_options['FileSettings']['Directory']) {
+      $data_dir = $override_options['FileSettings']['Directory']
+    }
+    else {
+      $data_dir = undef
+    }
+  }
+  else {
+    $data_dir = undef
+  }
 
   case $::osfamily {
     'RedHat': {

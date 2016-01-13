@@ -1,17 +1,17 @@
 [Unit]
 Description=mattermost
-<% if @depend_service != '' -%>
-After=syslog.target network.target <%= @depend_service %>.service
-Requires=<%= @depend_service %>.service
+<% if @mattermost::depend_service != '' -%>
+After=syslog.target network.target <%= @mattermost::depend_service %>.service
+Requires=<%= @mattermost::depend_service %>.service
 <% else -%>
 After=syslog.target network.target
 <% end -%>
 
 [Service]
 Type=simple
-WorkingDirectory=<%= @symlink %>
-User=<%= @user %>
-ExecStart=<%= @symlink %>/bin/platform
+WorkingDirectory=<%= @mattermost::symlink %>
+User=<%= @mattermost::user %>
+ExecStart=<%= @mattermost::symlink %>/bin/platform
 PIDFile=/var/spool/mattermost/pid/master.pid
 
 [Install]
