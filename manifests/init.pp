@@ -47,6 +47,10 @@ class mattermost (
   validate_string($service_template)
   validate_string($service_path)
 
+  notify { 'data_dir_test':
+    message => "data dir is: ${data_dir}",
+  }
+  
   anchor { 'mattermost::begin': } ->
   class { '::mattermost::install': } ->
   class { '::mattermost::config': } ->
