@@ -14,7 +14,6 @@ class mattermost (
   $gid              = $mattermost::params::gid,
   $conf             = $mattermost::params::conf,
   $override_options = $mattermost::params::override_options,
-  $data_dir         = $mattermost::params::data_dir,
   $manage_data_dir  = $mattermost::params::manage_data_dir,
   $depend_service   = $mattermost::params::depend_service,
   $install_service  = $mattermost::params::install_service,
@@ -37,9 +36,6 @@ class mattermost (
   validate_integer($uid)
   validate_integer($gid)
   validate_hash($override_options)
-  if $data_dir {
-    validate_absolute_path($data_dir)
-  }
   validate_bool($manage_data_dir)
   validate_string($depend_service)
   validate_bool($install_service)
@@ -47,6 +43,35 @@ class mattermost (
   validate_string($service_template)
   validate_string($service_path)
 
+  if ( $override_options['FileSettings'] ) {
+    notify { "here 1":
+      message => 'here 1',
+    }
+    if ($override_options['FileSettings']['Directory']) {
+      notify { "here 2":
+        message => 'here 2',
+      }
+      $data_dir = $override_options['FileSettings']['Directory']
+      validate_absolute_path($data_dir)
+    }
+    else {
+      notify { "here 3":
+        message => 'here 3',
+      }
+      $data_dir = undef
+    }
+  }
+  else {
+    notify { "here 4":
+      message => 'here 4',
+    }
+    $data_dir = undef
+  }
+  notify { "hash vaue":
+    message => $override_options['FileSettings']['Directory'],
+  }
+  
+  
   notify { 'data_dir_test':
     message => "data dir is: ${data_dir}",
   }

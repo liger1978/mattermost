@@ -19,34 +19,6 @@ class mattermost::params {
   $depend_service = ''
   $install_service = true
   $manage_service = true
-  
-  if ( ! empty($override_options['FileSettings']) ) {
-    notify { "here 1":
-      message => 'here 1',
-    }
-    if ($override_options['FileSettings']['Directory']) {
-      notify { "here 2":
-        message => 'here 2',
-      }
-      $data_dir = $override_options['FileSettings']['Directory']
-    }
-    else {
-      notify { "here 3":
-        message => 'here 3',
-      }
-      $data_dir = undef
-    }
-  }
-  else {
-    notify { "here 4":
-      message => 'here 4',
-    }
-    $data_dir = undef
-  }
-  notify { "hash value":
-    message => $override_options['FileSettings']['Directory'],
-  }
-  
 
   case $::osfamily {
     'RedHat': {
