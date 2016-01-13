@@ -15,6 +15,7 @@ class mattermost::params {
   $uid = '1500'
   $gid = '1500'
   $override_options = {}
+  $manage_data_dir = true
   $depend_service = ''
   $install_service = true
   $manage_service = true
