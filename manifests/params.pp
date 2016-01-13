@@ -20,7 +20,7 @@ class mattermost::params {
   $install_service = true
   $manage_service = true
   
-  if ($override_options['FileSettings'] != undef) {
+  if ( ! empty($override_options['FileSettings']) ) {
     notify { "here 1":
       message => 'here 1',
     }
