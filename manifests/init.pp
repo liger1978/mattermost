@@ -37,8 +37,10 @@ class mattermost (
   validate_integer($gid)
   validate_hash($override_options)
   if ($override_options) {
-    if ($override_options['FileSettings']['Directory']){
-      validate_absolute_path($override_options['FileSettings']['Directory'])
+    if ($override_options['FileSettings']) {
+      if ($override_options['FileSettings']['Directory']) {
+        validate_absolute_path($override_options['FileSettings']['Directory'])
+      }
     }
   }
   validate_bool($manage_data_dir)
