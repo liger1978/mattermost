@@ -63,7 +63,7 @@ class mattermost::install inherits mattermost {
   if ($data_dir and $manage_data_dir){
     file { $data_dir:
       ensure => directory,
-      user   => $mattermost::user,
+      owner   => $mattermost::user,
       group  => $mattermost::group,
       mode   => '0754',
     }
