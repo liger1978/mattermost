@@ -8,6 +8,7 @@
     * [What mattermost affects](#what-mattermost-affects)
     * [Beginning with mattermost](#beginning-with-mattermost)
 4. [Usage - Configuration options and additional functionality](#usage)
+    * [Upgrading Mattermost](#upgrading-mattermost)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -119,6 +120,10 @@ class { 'mattermost':
       'DriverName' => 'postgres',
       'DataSource' => "postgres://mattermost:mattermost@127.0.0.1:5432/mattermost?sslmode=disable&connect_timeout=10",
     },
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  }
 }
 ````
 
@@ -136,6 +141,38 @@ Download from an internal server:
 class { 'mattermost':
   version  => '1.3.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
+}
+````
+
+### Upgrading Mattermost
+
+This module will elegantly upgrade your Mattermost installation.  To upgrade
+just specify the next version when it is released, for example:
+
+````puppet
+class { 'mattermost':
+  version => '1.4.0',
+}
+````
+
+On the next Puppet run, the new version will be downloaded and installed; the 
+friendly symbolic link will be changed to point at the new installation
+directory and the service will be refreshed.
+
+**Note 1:**  The Mattermost application only supports and upgrade to the
+subsequent release (e.g. 1.3.0 -> 1.4.0) so do not try to skip versions.
+
+**Note 2:** For a seamless upgrade you should store your file data outside of
+the Mattermost installation directory so that your data is still accessible
+after each upgrade.  For example: 
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
 }
 ````
 
@@ -229,7 +266,7 @@ A hash containing overrides to the default settings contained in Mattermost's
 [config file](https://github.com/mattermost/platform/blob/master/config/config.json).
 Defaults to `{}` (empty hash).
 
-**Please note:** You should at least specify `SqlSettings`, e.g.:
+**Note 1:** You should at least specify `SqlSettings`, e.g.:
 
 ````puppet
 class { 'mattermost':
@@ -241,6 +278,28 @@ class { 'mattermost':
   },
 }
 ````
+
+**Note 2:**  Setting the Mattermost data directory within `override_options`
+will result in the specified directory being created if it does not exist.
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
+}
+````
+
+When this value is set, an absolute path must be specified.
+
+
+##### `manage_data_dir`
+
+Should the module ensure Mattermost's data directory exists and has the correct
+permissions? This parameter only applies if the data directory as part of the
+[`override_options`](#override_options) hash.  Defaults to `true`.
 
 ##### `depend_service`
 
