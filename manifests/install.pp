@@ -14,7 +14,7 @@ class mattermost::install inherits mattermost {
     ''      => undef,
     default => $mattermost::service_mode,
   }
-  staging::file{ $mattermost::filename:
+  staging::file{ "mattermost_v${mattermost::version}":
     source => $full_url,
   }
   if ($mattermost::create_user) {
@@ -36,13 +36,13 @@ class mattermost::install inherits mattermost {
     require => [User[$mattermost::user],
                 Group[$mattermost::group], ],
   }
-  staging::extract{ $mattermost::filename:
+  staging::extract{ "mattermost_v${mattermost::version}":
     target  => $dir,
     strip   => '1',
     user    => $mattermost::user,
     group   => $mattermost::group,
     creates => "${dir}/bin",
-    require => [Staging::File[$mattermost::filename],
+    require => [Staging::File["mattermost_v${mattermost::version}"],
                 User[$mattermost::user],
                 Group[$mattermost::group],
                 File[$dir], ],
@@ -64,7 +64,7 @@ class mattermost::install inherits mattermost {
       owner   => $mattermost::user,
       group   => $mattermost::group,
       mode    => '0754',
-      require => Staging::Extract[$mattermost::filename],
+      require => Staging::Extract["mattermost_v${mattermost::version}"],
     }
   }
 }
