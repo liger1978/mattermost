@@ -1,3 +1,6 @@
+2016-01-14 Richard Grainger <grainger@gmail.com> - 1.0.5
+* Refresh service when config changes
+
 2016-01-13 Richard Grainger <grainger@gmail.com> - 1.0.4
 * Manage Mattermost data directory in non-default location
 * Allow smooth upgrades
