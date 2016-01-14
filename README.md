@@ -44,7 +44,7 @@ The Mattermost module does the following:
 
 ### Beginning with mattermost
 
-If you have a database server running, ready for Mattermost server to use as a
+If you have a suitable database installed for Mattermost server to use as a
 backend, this is the minimum you need to get Mattermost server working:
 
 ````puppet
@@ -126,6 +126,18 @@ class { 'mattermost':
   }
 }
 ````
+
+Store file data (e.g. uploads) in a separate directory (recommended):
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
+}
+```` 
 
 Install an older version:
 
