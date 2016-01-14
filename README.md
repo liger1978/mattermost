@@ -147,6 +147,14 @@ class { 'mattermost':
 }
 ````
 
+Install a release candidate:
+
+````puppet
+class { 'mattermost':
+  version => '1.4.0-rc2',
+}
+````
+
 Download from an internal server:
 
 ````puppet
@@ -159,7 +167,7 @@ class { 'mattermost':
 ### Upgrading Mattermost
 
 The module can elegantly upgrade your Mattermost installation.  To upgrade,
-just specify the next version when it is released, for example:
+just specify the new version when it has been released, for example:
 
 ````puppet
 class { 'mattermost':
