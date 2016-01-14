@@ -159,8 +159,8 @@ On the next Puppet run, the new version will be downloaded and installed; the
 friendly symbolic link will be changed to point at the new installation
 directory and the service will be refreshed.
 
-**Note 1:**  The Mattermost application only supports an upgrade to the
-subsequent release (e.g. 1.3.0 -> 1.4.0), so do not try to skip versions.
+**Note 1:**  The Mattermost application supports sequential upgrades (e.g.
+1.3.0 &rarr; 1.4.0). Do not try to skip versions.
 
 **Note 2:** For a seamless upgrade you should store your file data outside of
 the Mattermost installation directory so that your uploaded files are still
