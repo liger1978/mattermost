@@ -57,7 +57,7 @@ class mattermost (
 
   anchor { 'mattermost::begin': } ->
   class { '::mattermost::install': } ->
-  class { '::mattermost::config': } ->
+  class { '::mattermost::config': } ~>
   class { '::mattermost::service': } ->
   anchor { 'mattermost::end': }
 }
