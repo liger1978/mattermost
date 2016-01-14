@@ -1,4 +1,4 @@
-2016-01-13 Richard Grainger <grainger@gmail.com> - 1.0.3
+2016-01-13 Richard Grainger <grainger@gmail.com> - 1.0.4
 * Manage Mattermost data directory in non-default location
 * Allow smooth upgrades
 
