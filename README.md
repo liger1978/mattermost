@@ -146,7 +146,7 @@ class { 'mattermost':
 
 ### Upgrading Mattermost
 
-This module will elegantly upgrade your Mattermost installation.  To upgrade
+The module can elegantly upgrade your Mattermost installation.  To upgrade,
 just specify the next version when it is released, for example:
 
 ````puppet
@@ -159,12 +159,12 @@ On the next Puppet run, the new version will be downloaded and installed; the
 friendly symbolic link will be changed to point at the new installation
 directory and the service will be refreshed.
 
-**Note 1:**  The Mattermost application only supports and upgrade to the
-subsequent release (e.g. 1.3.0 -> 1.4.0) so do not try to skip versions.
+**Note 1:**  The Mattermost application only supports an upgrade to the
+subsequent release (e.g. 1.3.0 -> 1.4.0), so do not try to skip versions.
 
 **Note 2:** For a seamless upgrade you should store your file data outside of
-the Mattermost installation directory so that your data is still accessible
-after each upgrade.  For example: 
+the Mattermost installation directory so that your uploaded files are still
+accessible after each upgrade. For example: 
 
 ````puppet
 class { 'mattermost':
@@ -266,7 +266,7 @@ A hash containing overrides to the default settings contained in Mattermost's
 [config file](https://github.com/mattermost/platform/blob/master/config/config.json).
 Defaults to `{}` (empty hash).
 
-**Note 1:** You should at least specify `SqlSettings`, e.g.:
+**Please note:** You should at least specify `SqlSettings`, e.g.:
 
 ````puppet
 class { 'mattermost':
@@ -279,8 +279,13 @@ class { 'mattermost':
 }
 ````
 
-**Note 2:**  Setting the Mattermost data directory within `override_options`
-will result in the specified directory being created if it does not exist.
+###### `override_options['FileSettings']['Directory']`
+An element of the `override_options` hash that specifies the Mattermost data 
+directory. Setting this element will result in the directory being created with
+the correct permissions if it does not already exist (unless
+[`manage_data_dir`](#manage_data_dir) is `false`).
+
+An absolute path must be specified.  Example:
 
 ````puppet
 class { 'mattermost':
@@ -291,9 +296,6 @@ class { 'mattermost':
   },
 }
 ````
-
-When this value is set, an absolute path must be specified.
-
 
 ##### `manage_data_dir`
 
