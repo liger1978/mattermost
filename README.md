@@ -300,8 +300,9 @@ class { 'mattermost':
 ##### `manage_data_dir`
 
 Should the module ensure Mattermost's data directory exists and has the correct
-permissions? This parameter only applies if the data directory as part of the
-[`override_options`](#override_options) hash.  Defaults to `true`.
+permissions? This parameter only applies if
+[`override_options['FileSettings']['Directory']`](#override_optionsfilesettingsdirectory)
+is set. Defaults to `true`.
 
 ##### `depend_service`
 
