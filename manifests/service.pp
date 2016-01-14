@@ -6,9 +6,10 @@ class mattermost::service inherits mattermost {
   }
   if ($mattermost::install_service) and ($mattermost::manage_service) {
     service { 'mattermost':
-      ensure   => 'running',
-      enable   => true,
-      provider => $provider,
+      ensure    => 'running',
+      enable    => true,
+      provider  => $provider,
+      subscribe => File[$mattermost::symlink],
     }
   }
 }

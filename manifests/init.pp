@@ -14,6 +14,7 @@ class mattermost (
   $gid              = $mattermost::params::gid,
   $conf             = $mattermost::params::conf,
   $override_options = $mattermost::params::override_options,
+  $manage_data_dir  = $mattermost::params::manage_data_dir,
   $depend_service   = $mattermost::params::depend_service,
   $install_service  = $mattermost::params::install_service,
   $manage_service   = $mattermost::params::manage_service,
@@ -35,11 +36,24 @@ class mattermost (
   validate_integer($uid)
   validate_integer($gid)
   validate_hash($override_options)
+  validate_bool($manage_data_dir)
   validate_string($depend_service)
   validate_bool($install_service)
   validate_bool($manage_service)
   validate_string($service_template)
   validate_string($service_path)
+  if ( $override_options['FileSettings'] ) {
+    if ($override_options['FileSettings']['Directory']) {
+      $data_dir = $override_options['FileSettings']['Directory']
+      validate_absolute_path($data_dir)
+    }
+    else {
+      $data_dir = undef
+    }
+  }
+  else {
+    $data_dir = undef
+  }
 
   anchor { 'mattermost::begin': } ->
   class { '::mattermost::install': } ->

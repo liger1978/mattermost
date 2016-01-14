@@ -8,6 +8,7 @@
     * [What mattermost affects](#what-mattermost-affects)
     * [Beginning with mattermost](#beginning-with-mattermost)
 4. [Usage - Configuration options and additional functionality](#usage)
+    * [Upgrading Mattermost](#upgrading-mattermost)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -43,7 +44,7 @@ The Mattermost module does the following:
 
 ### Beginning with mattermost
 
-If you have a database server running, ready for Mattermost server to use as a
+If you have a suitable database installed for Mattermost server to use as a
 backend, this is the minimum you need to get Mattermost server working:
 
 ````puppet
@@ -119,8 +120,24 @@ class { 'mattermost':
       'DriverName' => 'postgres',
       'DataSource' => "postgres://mattermost:mattermost@127.0.0.1:5432/mattermost?sslmode=disable&connect_timeout=10",
     },
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  }
 }
 ````
+
+Store file data (e.g. uploads) in a separate directory (recommended):
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
+}
+```` 
 
 Install an older version:
 
@@ -130,12 +147,52 @@ class { 'mattermost':
 }
 ````
 
+Install a release candidate:
+
+````puppet
+class { 'mattermost':
+  version => '1.4.0-rc2',
+}
+````
+
 Download from an internal server:
 
 ````puppet
 class { 'mattermost':
   version  => '1.3.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
+}
+````
+
+### Upgrading Mattermost
+
+The module can elegantly upgrade your Mattermost installation.  To upgrade,
+just specify the new version when it has been released, for example:
+
+````puppet
+class { 'mattermost':
+  version => '1.4.0',
+}
+````
+
+On the next Puppet run, the new version will be downloaded and installed; the 
+friendly symbolic link will be changed to point at the new installation
+directory and the service will be refreshed.
+
+**Note 1:**  The Mattermost application supports sequential upgrades (e.g.
+1.3.0 &rarr; 1.4.0). Do not try to skip versions.
+
+**Note 2:** For a seamless upgrade you should store your file data outside of
+the Mattermost installation directory so that your uploaded files are still
+accessible after each upgrade. For example: 
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
 }
 ````
 
@@ -241,6 +298,31 @@ class { 'mattermost':
   },
 }
 ````
+
+###### `override_options['FileSettings']['Directory']`
+An element of the `override_options` hash that specifies the Mattermost data 
+directory. Setting this element will result in the directory being created with
+the correct permissions if it does not already exist (unless
+[`manage_data_dir`](#manage_data_dir) is `false`).
+
+An absolute path must be specified.  Example:
+
+````puppet
+class { 'mattermost':
+  override_options => {
+    'FileSettings' => {
+      'Directory' => '/var/mattermost',
+    },
+  },
+}
+````
+
+##### `manage_data_dir`
+
+Should the module ensure Mattermost's data directory exists and has the correct
+permissions? This parameter only applies if
+[`override_options['FileSettings']['Directory']`](#override_optionsfilesettingsdirectory)
+is set. Defaults to `true`.
 
 ##### `depend_service`
 
