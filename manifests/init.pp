@@ -6,6 +6,7 @@ class mattermost (
   $full_url         = $mattermost::params::full_url,
   $dir              = $mattermost::params::dir,
   $symlink          = $mattermost::params::symlink,
+  $conf           = $mattermost::params::config,
   $create_user      = $mattermost::params::create_user,
   $create_group     = $mattermost::params::create_group,
   $user             = $mattermost::params::user,
@@ -29,6 +30,7 @@ class mattermost (
   validate_string($full_url)
   validate_absolute_path($dir)
   validate_absolute_path($symlink)
+  validate_string($conf)
   validate_bool($create_user)
   validate_bool($create_group)
   validate_string($user)
