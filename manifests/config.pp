@@ -21,6 +21,6 @@ class mattermost::config inherits mattermost {
     changes  => template('mattermost/config.json.erb'),
     lens     => 'Json.lns',
     incl     => $conf,
-    requires => Exec['Create empty json conf file'],
+    require  => Exec['Create empty json conf file'],
   }
 }
