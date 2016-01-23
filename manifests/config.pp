@@ -18,9 +18,9 @@ class mattermost::config inherits mattermost {
     creates => $conf,
   }
   augeas{ $conf:
-    changes  => template('mattermost/config.json.erb'),
-    lens     => 'Json.lns',
-    incl     => $conf,
-    require  => Exec['Create empty json conf file'],
+    changes => template('mattermost/config.json.erb'),
+    lens    => 'Json.lns',
+    incl    => $conf,
+    require => Exec['Create empty json conf file'],
   }
 }
