@@ -13,14 +13,18 @@ class mattermost::config inherits mattermost {
   )
   # Hack required due to bug with Augeas not working with empty or non-existent
   # Json file
-  exec { 'Create empty json conf file':
+  exec { "Create ${conf}":
     command => "/bin/echo '{}' > ${conf}",
     creates => $conf,
-  }
+  } ->
+  file { $conf:
+    owner => $mattermost::user,
+    group => $mattermost::group,
+    mode  => '0644',
+  } ->
   augeas{ $conf:
     changes => template('mattermost/config.json.erb'),
     lens    => 'Json.lns',
     incl    => $conf,
-    require => Exec['Create empty json conf file'],
   }
 }
