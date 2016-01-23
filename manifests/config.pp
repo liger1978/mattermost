@@ -11,10 +11,10 @@ class mattermost::config inherits mattermost {
     '__DIR__',
     $dir
   )
-   # Hack required due to bug with Augeas not working with empty or non-existent
-   # Json file
+  # Hack required due to bug with Augeas not working with empty or non-existent
+  # Json file
   exec { 'Create empty json conf file':
-    command => "/bin/echo '{}' > ${conf)",
+    command => "/bin/echo '{}' > ${conf}",
     creates => $conf,
   }
   augeas{ $conf:
