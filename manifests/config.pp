@@ -11,16 +11,12 @@ class mattermost::config inherits mattermost {
     '__DIR__',
     $dir
   )
-  # Hack required due to bug with Augeas not working with empty or non-existent
-  # Json file
-  exec { "Create ${conf}":
-    command => "/bin/echo '{}' > ${conf}",
-    creates => $conf,
-  } ->
   file { $conf:
-    owner => $mattermost::user,
-    group => $mattermost::group,
-    mode  => '0644',
+    content => '{}',
+    owner   => $mattermost::user,
+    group   => $mattermost::group,
+    mode    => '0644',
+    replace => false,
   } ->
   augeas{ $conf:
     changes => template('mattermost/config.json.erb'),
