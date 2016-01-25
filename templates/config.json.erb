@@ -12,7 +12,7 @@ set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<
            else
              type = "string"
            end 
-         when FixNum
+         when Fixnum
            type = "number"
          when TrueClass, FalseClass
            type = "const"
