@@ -11,7 +11,7 @@ After=syslog.target network.target
 Type=simple
 WorkingDirectory=<%= @symlink %>
 User=<%= @user %>
-ExecStart=bin/platform -config=<%= @conf %>
+ExecStart=<%= @dir %>/bin/platform -config=<%= @conf %>
 PIDFile=/var/spool/mattermost/pid/master.pid
 
 [Install]
