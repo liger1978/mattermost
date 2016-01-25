@@ -8,7 +8,7 @@ set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<
     <% case value
          when String
            type = "string"
-         when Fixnum
+         when Numeric
            type = "number"
          when TrueClass, FalseClass
            type = "const"
