@@ -250,6 +250,10 @@ The directory to install Mattermost server on your system.  Defaults to
 The path of the friendly symbolic link to the versioned Mattermost installation
 directory.  Defaults to `/opt/mattermost`.
 
+##### `conf`
+
+The path to Mattermost config file.  Defaults to `${dir}/config/confg.json`. 
+
 ##### `create_user`
 
 Should the module create an unprivileged system account that will be used to run
@@ -286,7 +290,7 @@ A hash containing overrides to the default settings contained in Mattermost's
 [config file](https://github.com/mattermost/platform/blob/master/config/config.json).
 Defaults to `{}` (empty hash).
 
-**Please note:** You should at least specify `SqlSettings`, e.g.:
+**Note 1:** You should at least specify `SqlSettings`, e.g.:
 
 ````puppet
 class { 'mattermost':
@@ -298,6 +302,9 @@ class { 'mattermost':
   },
 }
 ````
+
+**Note 2:** To purge existing settings from the configuration file, use the
+[`purge_conf`](#purge_conf) parameter.
 
 ###### `override_options['FileSettings']['Directory']`
 An element of the `override_options` hash that specifies the Mattermost data 
@@ -339,6 +346,11 @@ operating system?  Defaults to `true`.
 
 Should the module manage the installed Mattermost server daemon
 (`ensure => 'running'` and `enable => true`)? Defaults to `true`.
+
+##### `purge_conf`
+
+Should the module purge existing settings from Mattermost configuration file?
+Defaults to `false`.
 
 ## Limitations
 
