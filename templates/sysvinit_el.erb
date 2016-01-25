@@ -15,7 +15,8 @@
 
 name=mattermost
 dir=<%= @symlink %>
-exe="bin/platform -config='<%= @conf %>'"
+exe=bin/platform
+exe_args="-config='<%= @conf %>'" 
 uid=<%= @user %>
 pidfile='/var/run/mattermost.pid'
 
@@ -25,7 +26,7 @@ start() {
   echo "Starting daemon: " ${name}
   # start the program
   cd ${dir}
-  daemon --user ${uid} ${exe} >/dev/null 2>&1 &
+  daemon --user ${uid} ${exe} ${exe_args} >/dev/null 2>&1 &
   [ $? = 0 ] && { exit 0 ; } || { exit 1 ; }
 }
 stop() {
