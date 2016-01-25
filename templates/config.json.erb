@@ -1,4 +1,4 @@
-<% if @purge_conf -%>
+<% if @purge_conf == true -%>
 rm /files<%= @conf %>/dict/*
 <% end -%> 
 @override_options.each do |section_name, section_content| -%>
