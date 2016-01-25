@@ -1,3 +1,10 @@
+2016-01-25 Richard Grainger <grainger@gmail.com> - 1.1.0
+* Support Mattermost 1.4.0
+* Allow external config.json file with conf parameter
+* Add purge_conf parameter
+* Make systemd service more robust
+* Better support for Puppet 3
+
 2016-01-14 Richard Grainger <grainger@gmail.com> - 1.0.5
 * Refresh service when config changes
 
