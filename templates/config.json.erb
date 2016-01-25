@@ -1,4 +1,7 @@
-<% @override_options.each do |section_name, section_content| -%>
+<% if @purge_conf -%>
+rm /files<%= @conf %>/dict/*
+<% end -%> 
+@override_options.each do |section_name, section_content| -%>
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>'] '<%= section_name %>'
   <% section_content.each do |key, value| -%>
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>'] '<%= key %>'

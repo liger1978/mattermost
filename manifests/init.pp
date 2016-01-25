@@ -21,6 +21,7 @@ class mattermost (
   $manage_service   = $mattermost::params::manage_service,
   $service_template = $mattermost::params::service_template,
   $service_path     = $mattermost::params::service_path,
+  $purge_conf       = $mattermost::params::purge_conf,
 
 ) inherits mattermost::params {
 
@@ -44,6 +45,7 @@ class mattermost (
   validate_bool($manage_service)
   validate_string($service_template)
   validate_string($service_path)
+  validate_bool($purge_conf)
   if ( $override_options['FileSettings'] ) {
     if ($override_options['FileSettings']['Directory']) {
       $data_dir = $override_options['FileSettings']['Directory']

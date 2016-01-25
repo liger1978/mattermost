@@ -20,6 +20,7 @@ class mattermost::params {
   $depend_service = ''
   $install_service = true
   $manage_service = true
+  $purge_conf = false
 
   case $::osfamily {
     'RedHat': {
