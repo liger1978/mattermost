@@ -143,7 +143,7 @@ Install an older version:
 
 ````puppet
 class { 'mattermost':
-  version => '1.2.1',
+  version => '1.3.0',
 }
 ````
 
@@ -159,7 +159,7 @@ Download from an internal server:
 
 ````puppet
 class { 'mattermost':
-  version  => '1.3.0',
+  version  => '1.4.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
 ````
@@ -228,14 +228,14 @@ Defaults to `mattermost.tar.gz`.
 
 ##### `version`
 
-The version of Mattermost server to install.  Defaults to `1.3.0`.
+The version of Mattermost server to install.  Defaults to `1.4.0`.
 
 ##### `full_url`
 
 The full URL of the Mattermost server release archive.  Defaults to
 `${base_url}/v${version}/${filename}`, so with the default `base_url`,
 `file_name` and `version`, this will be:
-`https://github.com/mattermost/platform/releases/download/v1.3.0/mattermost.tar.gz`.
+`https://github.com/mattermost/platform/releases/download/v1.4.0/mattermost.tar.gz`.
 
 **Please note:** if you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
