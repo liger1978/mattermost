@@ -6,6 +6,7 @@ class mattermost (
   $full_url         = $mattermost::params::full_url,
   $dir              = $mattermost::params::dir,
   $symlink          = $mattermost::params::symlink,
+  $conf           = $mattermost::params::config,
   $create_user      = $mattermost::params::create_user,
   $create_group     = $mattermost::params::create_group,
   $user             = $mattermost::params::user,
@@ -20,6 +21,7 @@ class mattermost (
   $manage_service   = $mattermost::params::manage_service,
   $service_template = $mattermost::params::service_template,
   $service_path     = $mattermost::params::service_path,
+  $purge_conf       = $mattermost::params::purge_conf,
 
 ) inherits mattermost::params {
 
@@ -29,6 +31,7 @@ class mattermost (
   validate_string($full_url)
   validate_absolute_path($dir)
   validate_absolute_path($symlink)
+  validate_string($conf)
   validate_bool($create_user)
   validate_bool($create_group)
   validate_string($user)
@@ -42,6 +45,7 @@ class mattermost (
   validate_bool($manage_service)
   validate_string($service_template)
   validate_string($service_path)
+  validate_bool($purge_conf)
   if ( $override_options['FileSettings'] ) {
     if ($override_options['FileSettings']['Directory']) {
       $data_dir = $override_options['FileSettings']['Directory']

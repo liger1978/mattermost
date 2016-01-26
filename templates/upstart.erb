@@ -3,4 +3,4 @@ stop on runlevel [016]
 respawn
 chdir <%= @symlink %>
 setuid <%= @user %>
-exec bin/platform
+exec bin/platform -config="<%= @conf %>"

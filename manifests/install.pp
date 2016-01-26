@@ -10,6 +10,11 @@ class mattermost::install inherits mattermost {
     '__VERSION__',
     $mattermost::version
   )
+  $conf = regsubst(
+    $mattermost::conf,
+    '__DIR__',
+    $dir
+  )
   $mode = $mattermost::service_mode? {
     ''      => undef,
     default => $mattermost::service_mode,

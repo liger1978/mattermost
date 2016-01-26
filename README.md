@@ -143,7 +143,7 @@ Install an older version:
 
 ````puppet
 class { 'mattermost':
-  version => '1.2.1',
+  version => '1.3.0',
 }
 ````
 
@@ -159,7 +159,7 @@ Download from an internal server:
 
 ````puppet
 class { 'mattermost':
-  version  => '1.3.0',
+  version  => '1.4.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
 ````
@@ -228,14 +228,14 @@ Defaults to `mattermost.tar.gz`.
 
 ##### `version`
 
-The version of Mattermost server to install.  Defaults to `1.3.0`.
+The version of Mattermost server to install.  Defaults to `1.4.0`.
 
 ##### `full_url`
 
 The full URL of the Mattermost server release archive.  Defaults to
 `${base_url}/v${version}/${filename}`, so with the default `base_url`,
 `file_name` and `version`, this will be:
-`https://github.com/mattermost/platform/releases/download/v1.3.0/mattermost.tar.gz`.
+`https://github.com/mattermost/platform/releases/download/v1.4.0/mattermost.tar.gz`.
 
 **Please note:** if you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
@@ -249,6 +249,10 @@ The directory to install Mattermost server on your system.  Defaults to
 
 The path of the friendly symbolic link to the versioned Mattermost installation
 directory.  Defaults to `/opt/mattermost`.
+
+##### `conf`
+
+The path to Mattermost's config file.  Defaults to `${dir}/config/confg.json`. 
 
 ##### `create_user`
 
@@ -286,7 +290,7 @@ A hash containing overrides to the default settings contained in Mattermost's
 [config file](https://github.com/mattermost/platform/blob/master/config/config.json).
 Defaults to `{}` (empty hash).
 
-**Please note:** You should at least specify `SqlSettings`, e.g.:
+**Note 1:** You should at least specify `SqlSettings`, e.g.:
 
 ````puppet
 class { 'mattermost':
@@ -298,6 +302,9 @@ class { 'mattermost':
   },
 }
 ````
+
+**Note 2:** To purge existing settings from the configuration file, use the
+[`purge_conf`](#purge_conf) parameter.
 
 ###### `override_options['FileSettings']['Directory']`
 An element of the `override_options` hash that specifies the Mattermost data 
@@ -339,6 +346,11 @@ operating system?  Defaults to `true`.
 
 Should the module manage the installed Mattermost server daemon
 (`ensure => 'running'` and `enable => true`)? Defaults to `true`.
+
+##### `purge_conf`
+
+Should the module purge existing settings from Mattermost configuration file?
+Defaults to `false`.
 
 ## Limitations
 

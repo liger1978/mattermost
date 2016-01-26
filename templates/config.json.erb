@@ -1,28 +1,37 @@
-<%  @override_options.each do |section_name, section_content|
-      section_content.each do |key, value|
-        case value
-          when String
-            type = "string"
-          when Fixnum
-            type = "number"
-          when TrueClass, FalseClass
-            type = "const"
-          when Array
-            type = "array"
-        end
-        if type != "array" -%>
+<% if @purge_conf == true -%>
+rm /files<%= @conf %>/dict/*
+<% end -%>
+<% @override_options.each do |section_name, section_content| -%>
+set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>'] '<%= section_name %>'
+  <% section_content.each do |key, value| -%>
+set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>'] '<%= key %>'
+    <% case value
+         when String
+           if value =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
+             type = "number"
+           else
+             type = "string"
+           end 
+         when Fixnum
+           type = "number"
+         when TrueClass, FalseClass
+           type = "const"
+         when Array
+           type = "array"
+       end
+       if type != "array" -%>
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>']/<%= type %> "<%= value %>"
-     <% else -%>
+    <% else -%>
 rm /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>']/array
-       <% value.each do |element|
-            case element
-              when String
-                element_type = "string"
-              when Fixnum
-                element_type = "number"
-            end -%>
+      <% value.each do |element|
+           case element
+             when String
+               element_type = "string"
+             when Fixnum
+               element_type = "number"
+           end -%>
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>']/array/<%= element_type %>[last()+1] "<%= element %>"
-       <% end            
-        end
-      end
-    end -%>
+      <% end        
+       end
+     end
+   end -%>
