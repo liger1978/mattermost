@@ -240,7 +240,7 @@ default `version`, this will be `mattermost-team-2.1.0-linux-amd64.tar.gz`.
 The full URL of the Mattermost server release archive.  Defaults to
 `${base_url}/${version}/${filename}`, so with the default `base_url`,
 `version` and `file_name`, this will be:
-`https://releases.mattermost.com/1.4.0/mattermost.tar.gz`.
+`https://releases.mattermost.com/2.1.0/mattermost.tar.gz`.
 
 **Please note:** if you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
