@@ -1,7 +1,7 @@
 # See README.md.
 class mattermost::install inherits mattermost {
   $filename = regsubst(
-    ${mattermost::filename},
+    $mattermost::filename,
     '__VERSION__',
     $mattermost::version
   )
