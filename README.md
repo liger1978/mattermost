@@ -186,7 +186,7 @@ directory and the service will be refreshed.
 [backup your data] (http://docs.mattermost.com/install/upgrade-guide.html)
 before upgrades.
 
-**Note 2:** For a seamless upgrade you should store your file data outside of
+**Note 3:** For a seamless upgrade you should store your file data outside of
 the Mattermost installation directory so that your uploaded files are still
 accessible after each upgrade. For example: 
 
