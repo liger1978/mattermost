@@ -17,7 +17,7 @@
 
 The module installs and configures [Mattermost](http://www.mattermost.org/), the
 "alternative to proprietary SaaS messaging".  It is compatible with Enterprise
-Linux 6 and 7 (RHEL, CentOS etc.); Debian 6, 7, 8; Ubuntu 12.04 - 15.10; and
+Linux 6 and 7 (RHEL, CentOS etc.); Debian 7 and 8; Ubuntu 12.04 - 15.10; and
 SLES 12.
 
 ## Module Description
@@ -367,7 +367,7 @@ This module has been tested on:
 * CentOS 6, 7
 * Oracle Linux 6, 7
 * Scientific Linux 6, 7
-* Debian 6, 7, 8
+* Debian 7, 8
 * Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04
 * SLES 12
 
