@@ -1,9 +1,14 @@
 # See README.md.
 class mattermost::install inherits mattermost {
+  $filename = regsubst(
+    $mattermost::filename,
+    '__VERSION__',
+    $mattermost::version
+  )
   $full_url = regsubst(
     $mattermost::full_url,
     '__PLACEHOLDER__',
-    "${mattermost::base_url}/v${mattermost::version}/${mattermost::filename}"
+    "${mattermost::base_url}/${mattermost::version}/${filename}"
   )
   $dir = regsubst(
     $mattermost::dir,

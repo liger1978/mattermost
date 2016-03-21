@@ -1,6 +1,6 @@
 {
   "name": "liger1978-mattermost",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Richard Grainger",
   "summary": "Installs and configures Mattermost.",
   "license": "Apache-2.0",
@@ -43,7 +43,6 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
         "7",
         "8"
       ]

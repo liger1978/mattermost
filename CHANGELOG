@@ -1,3 +1,8 @@
+2016-03-21 Richard Grainger <grainger@gmail.com> - 1.2.0
+* Support Mattermost 2.1.0
+* New default download location
+* Drop support for Debian 6 (Squeeze)
+
 2016-01-25 Richard Grainger <grainger@gmail.com> - 1.1.0
 * Support Mattermost 1.4.0
 * Allow external config.json file with conf parameter

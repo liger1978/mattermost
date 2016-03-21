@@ -17,7 +17,7 @@
 
 The module installs and configures [Mattermost](http://www.mattermost.org/), the
 "alternative to proprietary SaaS messaging".  It is compatible with Enterprise
-Linux 6 and 7 (RHEL, CentOS etc.); Debian 6, 7, 8; Ubuntu 12.04 - 15.10; and
+Linux 6 and 7 (RHEL, CentOS etc.); Debian 7 and 8; Ubuntu 12.04 - 15.10; and
 SLES 12.
 
 ## Module Description
@@ -143,7 +143,7 @@ Install an older version:
 
 ````puppet
 class { 'mattermost':
-  version => '1.3.0',
+  version => '1.4.0',
 }
 ````
 
@@ -151,7 +151,7 @@ Install a release candidate:
 
 ````puppet
 class { 'mattermost':
-  version => '1.4.0-rc2',
+  version => '2.1.1-rc2',
 }
 ````
 
@@ -159,7 +159,7 @@ Download from an internal server:
 
 ````puppet
 class { 'mattermost':
-  version  => '1.4.0',
+  version  => '2.1.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
 ````
@@ -171,7 +171,7 @@ just specify the new version when it has been released, for example:
 
 ````puppet
 class { 'mattermost':
-  version => '1.4.0',
+  version => '2.1.0',
 }
 ````
 
@@ -182,7 +182,11 @@ directory and the service will be refreshed.
 **Note 1:**  The Mattermost application supports sequential upgrades (e.g.
 1.3.0 &rarr; 1.4.0). Do not try to skip versions.
 
-**Note 2:** For a seamless upgrade you should store your file data outside of
+**Note 2:** Always
+[backup your data] (http://docs.mattermost.com/install/upgrade-guide.html)
+before upgrades.
+
+**Note 3:** For a seamless upgrade you should store your file data outside of
 the Mattermost installation directory so that your uploaded files are still
 accessible after each upgrade. For example: 
 
@@ -219,23 +223,24 @@ class { 'mattermost':
 ##### `base_url`
 
 The base URL to download the Mattermost server release archive. Defaults to
-`https://github.com/mattermost/platform/releases/download`.
+`https://releases.mattermost.com`.
+
+##### `version`
+
+The version of Mattermost server to install.  Defaults to `2.1.0`.
 
 ##### `file_name`
 
 The filename of the remote Mattermost server release archive.
-Defaults to `mattermost.tar.gz`.
-
-##### `version`
-
-The version of Mattermost server to install.  Defaults to `1.4.0`.
+Defaults to `mattermost-team-${version}-linux-amd64.tar.gz`, so with the
+default `version`, this will be `mattermost-team-2.1.0-linux-amd64.tar.gz`.
 
 ##### `full_url`
 
 The full URL of the Mattermost server release archive.  Defaults to
-`${base_url}/v${version}/${filename}`, so with the default `base_url`,
-`file_name` and `version`, this will be:
-`https://github.com/mattermost/platform/releases/download/v1.4.0/mattermost.tar.gz`.
+`${base_url}/${version}/${filename}`, so with the default `base_url`,
+`version` and `file_name`, this will be:
+`https://releases.mattermost.com/2.1.0/mattermost-team-2.1.0-linux-amd64.tar.gz`.
 
 **Please note:** if you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
@@ -362,7 +367,7 @@ This module has been tested on:
 * CentOS 6, 7
 * Oracle Linux 6, 7
 * Scientific Linux 6, 7
-* Debian 6, 7, 8
+* Debian 7, 8
 * Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04
 * SLES 12
 

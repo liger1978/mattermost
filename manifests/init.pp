@@ -1,8 +1,8 @@
 # See README.md.
 class mattermost (
   $base_url         = $mattermost::params::base_url,
-  $filename         = $mattermost::params::filename,
   $version          = $mattermost::params::version,
+  $filename         = $mattermost::params::filename,
   $full_url         = $mattermost::params::full_url,
   $dir              = $mattermost::params::dir,
   $symlink          = $mattermost::params::symlink,
@@ -26,8 +26,8 @@ class mattermost (
 ) inherits mattermost::params {
 
   validate_string($base_url)
-  validate_string($filename)
   validate_string($version)
+  validate_string($filename)
   validate_string($full_url)
   validate_absolute_path($dir)
   validate_absolute_path($symlink)
