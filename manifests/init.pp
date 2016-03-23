@@ -6,7 +6,6 @@ class mattermost (
   $full_url         = $mattermost::params::full_url,
   $dir              = $mattermost::params::dir,
   $symlink          = $mattermost::params::symlink,
-  $conf           = $mattermost::params::config,
   $create_user      = $mattermost::params::create_user,
   $create_group     = $mattermost::params::create_group,
   $user             = $mattermost::params::user,
