@@ -1,3 +1,8 @@
+2016-03-26 Richard Grainger <grainger@gmail.com> - 1.2.1
+* Remove redundant $conf pointing to missing param (gguillotte - Puppet Labs)
+* Clean up line endings in templates (gguillotte - Puppet Labs)
+* Several README edits (gguillotte - Puppet Labs)
+
 2016-03-21 Richard Grainger <grainger@gmail.com> - 1.2.0
 * Support Mattermost 2.1.0
 * New default download location
