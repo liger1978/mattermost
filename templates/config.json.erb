@@ -11,7 +11,7 @@ set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<
              type = "number"
            else
              type = "string"
-           end 
+           end
          when Fixnum
            type = "number"
          when TrueClass, FalseClass
@@ -31,7 +31,7 @@ rm /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%
                element_type = "number"
            end -%>
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>']/array/<%= element_type %>[last()+1] "<%= element %>"
-      <% end        
+      <% end
        end
      end
    end -%>
