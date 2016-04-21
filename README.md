@@ -146,7 +146,7 @@ Install a specific version:
 
 ```puppet
 class { 'mattermost':
-  version => '1.4.0',
+  version => '2.1.0',
 }
 ```
 
@@ -154,7 +154,7 @@ Install a release candidate:
 
 ```puppet
 class { 'mattermost':
-  version => '2.1.1-rc2',
+  version => '2.2.1-rc2',
 }
 ```
 
@@ -162,7 +162,7 @@ Download from an internal server:
 
 ```puppet
 class { 'mattermost':
-  version  => '2.1.0',
+  version  => '2.2.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
 ```
@@ -174,7 +174,7 @@ just specify the new version when it has been released, for example:
 
 ```puppet
 class { 'mattermost':
-  version => '2.1.0',
+  version => '2.2.0',
 }
 ```
 
@@ -230,20 +230,20 @@ The base URL to download the Mattermost server release archive. Defaults to
 
 ##### `version`
 
-The version of Mattermost server to install. Defaults to `2.1.0`.
+The version of Mattermost server to install. Defaults to `2.2.0`.
 
 ##### `file_name`
 
 The filename of the remote Mattermost server release archive.
 Defaults to `mattermost-team-${version}-linux-amd64.tar.gz`, so with the
-default `version`, this will be `mattermost-team-2.1.0-linux-amd64.tar.gz`.
+default `version`, this will be `mattermost-team-2.2.0-linux-amd64.tar.gz`.
 
 ##### `full_url`
 
 The full URL of the Mattermost server release archive. Defaults to
 `${base_url}/${version}/${filename}`, so with the default `base_url`,
 `version` and `file_name`, this will be:
-`https://releases.mattermost.com/2.1.0/mattermost-team-2.1.0-linux-amd64.tar.gz`.
+`https://releases.mattermost.com/2.2.0/mattermost-team-2.2.0-linux-amd64.tar.gz`.
 
 **Please note:** If you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
