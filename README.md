@@ -15,17 +15,17 @@
 
 ## Overview
 
-The module installs and configures [Mattermost](http://www.mattermost.org/), the
-"alternative to proprietary SaaS messaging".  It is compatible with Enterprise
-Linux 6 and 7 (RHEL, CentOS etc.); Debian 7 and 8; Ubuntu 12.04 - 15.10; and
+This module installs and configures [Mattermost](http://www.mattermost.org/), the
+"alternative to proprietary SaaS messaging". It is compatible with Enterprise
+Linux 6 and 7 (RHEL, CentOS, etc.); Debian 7 and 8; Ubuntu 12.04 - 15.10; and
 SLES 12.
 
 ## Module Description
 
 The Mattermost module does the following:
 
- - Installs the Mattermost server from a release archive on the web (or an
-   alternative download location within your firewall).
+ - Installs the Mattermost server from a release archive on the web, or an
+   alternative download location within your firewall.
  - Installs and configures a daemon (service) for Mattermost in the format
    native to your operating system.
  - Configures Mattermost according to settings you provide (modifies
@@ -35,7 +35,7 @@ The Mattermost module does the following:
 
 ### What mattermost affects
 
-* Installs Mattermost server (defaults to `/opt/mattermost-${version`).
+* Installs Mattermost server (defaults to `/opt/mattermost-${version}`).
 * Creates a friendly symbolic link to the installation directory (defaults to
   `/opt/mattermost`).
 * Creates a Mattermost daemon (service) using your operating system's native
@@ -47,7 +47,7 @@ The Mattermost module does the following:
 If you have a suitable database installed for Mattermost server to use as a
 backend, this is the minimum you need to get Mattermost server working:
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'SqlSettings' => {
@@ -56,7 +56,7 @@ class { 'mattermost':
     },
   },
 }
-````
+```
 
 This will install a Mattermost server listening on the default TCP port
 (currently 8065).
@@ -66,10 +66,9 @@ reverse proxy, all running on the same system (requires
 [puppetlabs/postgresql](https://forge.puppetlabs.com/puppetlabs/postgresql) and
 [jfryman/nginx](https://forge.puppetlabs.com/jfryman/nginx)):
 
-````puppet
+```puppet
 class { 'postgresql::server':
-  listen_addresses        => '127.0.0.1',
-  ipv4acls                => ['host all all 127.0.0.1/32 md5'],
+  ipv4acls => ['host all all 127.0.0.1/32 md5'],
 }
 postgresql::server::db { 'mattermost':
    user     => 'mattermost',
@@ -93,21 +92,25 @@ nginx::resource::upstream { 'mattermost':
   members => [ 'localhost:8065' ],
 }
 nginx::resource::vhost { 'mattermost':
-  server_name => [ 'myserver.mydomain' ],
-  proxy       => 'http://mattermost',
+  server_name         => [ 'myserver.mydomain' ],
+  proxy               => 'http://mattermost',
+  location_cfg_append => {
+    'proxy_http_version'          => '1.1',
+    'proxy_set_header Upgrade'    => '$http_upgrade',
+    'proxy_set_header Connection' => '"upgrade"',
+  },
 }
-````
+```
 
 With the above code, you should be able to access the Mattermost application at
-`http://myserver.mydomain` (or whatever resolvable DNS domain you chose) via 
+`http://myserver.mydomain` (or whatever resolvable DNS domain you chose) via
 the NGINX reverse proxy listening on port 80.
 
 ## Usage
 
-Use `override_options` to change the default settings that come with Mattermost
-server:
+Use `override_options` to change Mattermost's default settings:
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'ServiceSettings' => {
@@ -125,11 +128,11 @@ class { 'mattermost':
     },
   }
 }
-````
+```
 
-Store file data (e.g. uploads) in a separate directory (recommended):
+Store file data, such as file uploads, in a separate directory (recommended):
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'FileSettings' => {
@@ -137,60 +140,60 @@ class { 'mattermost':
     },
   },
 }
-```` 
+```
 
-Install an older version:
+Install a specific version:
 
-````puppet
+```puppet
 class { 'mattermost':
   version => '1.4.0',
 }
-````
+```
 
 Install a release candidate:
 
-````puppet
+```puppet
 class { 'mattermost':
   version => '2.1.1-rc2',
 }
-````
+```
 
 Download from an internal server:
 
-````puppet
+```puppet
 class { 'mattermost':
   version  => '2.1.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
-````
+```
 
 ### Upgrading Mattermost
 
-The module can elegantly upgrade your Mattermost installation.  To upgrade,
+The module can elegantly upgrade your Mattermost installation. To upgrade,
 just specify the new version when it has been released, for example:
 
-````puppet
+```puppet
 class { 'mattermost':
   version => '2.1.0',
 }
-````
+```
 
-On the next Puppet run, the new version will be downloaded and installed; the 
+On the next Puppet run, the new version will be downloaded and installed; the
 friendly symbolic link will be changed to point at the new installation
 directory and the service will be refreshed.
 
-**Note 1:**  The Mattermost application supports sequential upgrades (e.g.
-1.3.0 &rarr; 1.4.0). Do not try to skip versions.
+**Note 1:**  The Mattermost application supports sequential upgrades (for
+example, from 1.3.0 &rarr; 1.4.0). Do not try to skip versions.
 
 **Note 2:** Always
-[backup your data] (http://docs.mattermost.com/install/upgrade-guide.html)
+[backup your data](http://docs.mattermost.com/install/upgrade-guide.html)
 before upgrades.
 
 **Note 3:** For a seamless upgrade you should store your file data outside of
 the Mattermost installation directory so that your uploaded files are still
-accessible after each upgrade. For example: 
+accessible after each upgrade. For example:
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'FileSettings' => {
@@ -198,7 +201,7 @@ class { 'mattermost':
     },
   },
 }
-````
+```
 
 ## Reference
 
@@ -211,8 +214,8 @@ class { 'mattermost':
 #### Private classes
 
  - `mattermost::install`: Installs the Mattermost server from a web archive and
-    optionally installs a daemon (service) for Mattermost in the format
-    native to your operating system.
+   optionally installs a daemon (service) for Mattermost in the format native
+   to your operating system.
  - `mattermost::config`: Configures Mattermost according to provided settings.
  - `mattermost::service`: Manages the Mattermost daemon.
 
@@ -227,7 +230,7 @@ The base URL to download the Mattermost server release archive. Defaults to
 
 ##### `version`
 
-The version of Mattermost server to install.  Defaults to `2.1.0`.
+The version of Mattermost server to install. Defaults to `2.1.0`.
 
 ##### `file_name`
 
@@ -237,27 +240,27 @@ default `version`, this will be `mattermost-team-2.1.0-linux-amd64.tar.gz`.
 
 ##### `full_url`
 
-The full URL of the Mattermost server release archive.  Defaults to
+The full URL of the Mattermost server release archive. Defaults to
 `${base_url}/${version}/${filename}`, so with the default `base_url`,
 `version` and `file_name`, this will be:
 `https://releases.mattermost.com/2.1.0/mattermost-team-2.1.0-linux-amd64.tar.gz`.
 
-**Please note:** if you set `full_url` you should also set `version`
+**Please note:** If you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
 
 ##### `dir`
 
-The directory to install Mattermost server on your system.  Defaults to
+The directory to install Mattermost server on your system. Defaults to
 `/opt/mattermost-${version}`.
 
 ##### `symlink`
 
 The path of the friendly symbolic link to the versioned Mattermost installation
-directory.  Defaults to `/opt/mattermost`.
+directory. Defaults to `/opt/mattermost`.
 
 ##### `conf`
 
-The path to Mattermost's config file.  Defaults to `${dir}/config/confg.json`. 
+The path to Mattermost's config file. Defaults to `${dir}/config/confg.json`.
 
 ##### `create_user`
 
@@ -277,7 +280,7 @@ Mattermost server. Defaults to `mattermost`.
 ##### `group`
 
 The name of the unprivileged system group that will be used to run
-Mattermost server.  Defaults to `mattermost`.
+Mattermost server. Defaults to `mattermost`.
 
 ##### `uid`
 
@@ -297,7 +300,7 @@ Defaults to `{}` (empty hash).
 
 **Note 1:** You should at least specify `SqlSettings`, e.g.:
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'SqlSettings' => {
@@ -306,20 +309,21 @@ class { 'mattermost':
     },
   },
 }
-````
+```
 
 **Note 2:** To purge existing settings from the configuration file, use the
 [`purge_conf`](#purge_conf) parameter.
 
 ###### `override_options['FileSettings']['Directory']`
-An element of the `override_options` hash that specifies the Mattermost data 
+
+An element of the `override_options` hash that specifies the Mattermost data
 directory. Setting this element will result in the directory being created with
 the correct permissions if it does not already exist (unless
 [`manage_data_dir`](#manage_data_dir) is `false`).
 
-An absolute path must be specified.  Example:
+An absolute path must be specified. Example:
 
-````puppet
+```puppet
 class { 'mattermost':
   override_options => {
     'FileSettings' => {
@@ -327,7 +331,7 @@ class { 'mattermost':
     },
   },
 }
-````
+```
 
 ##### `manage_data_dir`
 
@@ -339,7 +343,7 @@ is set. Defaults to `true`.
 ##### `depend_service`
 
 The local service (i.e. database service) that Mattermost server needs to start
-when it is installed on the same server as the database backend.  Defaults to
+when it is installed on the same server as the database backend. Defaults to
 `''` (empty string).
 
 ##### `install_service`
@@ -368,7 +372,7 @@ This module has been tested on:
 * Oracle Linux 6, 7
 * Scientific Linux 6, 7
 * Debian 7, 8
-* Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04
+* Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04, 15.10
 * SLES 12
 
 ## Development
