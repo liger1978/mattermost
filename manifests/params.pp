@@ -60,7 +60,7 @@ class mattermost::params {
               $service_path     = '/etc/init/mattermost.conf'
               $service_provider = 'upstart'
             }
-            '15.04': {
+            '15.04', '16.04': {
               $service_template = 'mattermost/systemd.erb'
               $service_path     = '/lib/systemd/system/mattermost.service'
               $service_provider = 'systemd'
