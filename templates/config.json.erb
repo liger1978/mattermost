@@ -7,7 +7,9 @@ set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>'] '<%= section_name 
 set /files<%= @conf %>/dict/entry[ . = '<%= section_name %>']/dict/entry[ . = '<%= key %>'] '<%= key %>'
     <% case value
          when String
-           if value =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
+           if key.casecmp("SMTPPort") == 0
+             type = "string"
+           elsif value =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
              type = "number"
            else
              type = "string"
