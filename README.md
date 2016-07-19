@@ -154,7 +154,7 @@ Install a release candidate:
 
 ```puppet
 class { 'mattermost':
-  version => '3.2.0-rc2',
+  version => '3.3.0-rc2',
 }
 ```
 
@@ -162,7 +162,7 @@ Download from an internal server:
 
 ```puppet
 class { 'mattermost':
-  version  => '3.1.0',
+  version  => '3.2.0',
   full_url => 'http://intranet.bigcorp.com/packages/mattermost.tar.gz',
 }
 ```
@@ -174,7 +174,7 @@ just specify the new version when it has been released, for example:
 
 ```puppet
 class { 'mattermost':
-  version => '3.1.0',
+  version => '3.2.0',
 }
 ```
 
@@ -183,7 +183,7 @@ friendly symbolic link will be changed to point at the new installation
 directory and the service will be refreshed.
 
 **Note 1:**  The Mattermost application supports sequential upgrades (for
-example, from 1.3.0 &rarr; 1.4.0). Do not try to skip versions.
+example, from 3.1.0 &rarr; 3.2.0). Do not try to skip versions.
 
 **Note 2:** Upgrade from a 2.X.X release to a 3.X.X release requires
 [manual steps](http://www.mattermost.org/upgrade-to-3-0/) 
@@ -233,20 +233,20 @@ The base URL to download the Mattermost server release archive. Defaults to
 
 ##### `version`
 
-The version of Mattermost server to install. Defaults to `3.1.0`.
+The version of Mattermost server to install. Defaults to `3.2.0`.
 
 ##### `file_name`
 
 The filename of the remote Mattermost server release archive.
 Defaults to `mattermost-team-${version}-linux-amd64.tar.gz`, so with the
-default `version`, this will be `mattermost-team-3.1.0-linux-amd64.tar.gz`.
+default `version`, this will be `mattermost-team-3.2.0-linux-amd64.tar.gz`.
 
 ##### `full_url`
 
 The full URL of the Mattermost server release archive. Defaults to
 `${base_url}/${version}/${filename}`, so with the default `base_url`,
 `version` and `file_name`, this will be:
-`https://releases.mattermost.com/3.1.0/mattermost-team-3.1.0-linux-amd64.tar.gz`.
+`https://releases.mattermost.com/3.2.0/mattermost-team-3.2.0-linux-amd64.tar.gz`.
 
 **Please note:** If you set `full_url` you should also set `version`
 to match the version of Mattermost server you are installing.
@@ -375,7 +375,7 @@ This module has been tested on:
 * Oracle Linux 6, 7
 * Scientific Linux 6, 7
 * Debian 7, 8
-* Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04, 15.10
+* Ubuntu 12.04, 12.10, 13.04, 13.10, 14.04, 14.10, 15.04, 15.10, 16.04
 * SLES 12
 
 ## Development
